@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Balance | Evidence-Based Screen Time Strategies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fcfcfc;
+            --text: #1a1a1a;
+            --accent: #2c3e50;
+            --gold: #c5a059;
+            --glass: rgba(255, 255, 255, 0.8);
+            --border: rgba(0, 0, 0, 0.08);
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Scroll Reveal Animation --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Layout --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+        section { padding: 100px 0; border-bottom: 1px solid var(--border); }
+
+        /* --- Hero Section --- */
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+        .hero-img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            filter: grayscale(20%);
+            transform: scale(1.1);
+            transition: transform 10s ease;
+        }
+        header:hover .hero-img { transform: scale(1); }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            max-width: 900px;
+            padding: 40px;
+            backdrop-filter: blur(5px);
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .hero-tag {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: block;
+            color: var(--gold);
+        }
+
+        /* --- Typography --- */
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            margin-bottom: 40px;
+            color: var(--accent);
+        }
+        .intro-text {
+            font-size: 1.4rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #555;
+            max-width: 800px;
+            margin-bottom: 50px;
+        }
+
+        /* --- Tables --- */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 40px 0;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th {
+            font-weight: 600;
+            padding: 15px;
+            border-bottom: 2px solid var(--text);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+        td {
+            padding: 20px 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+        tr:last-child td { border-bottom: none; }
+
+        /* --- Accordion --- */
+        .accordion-item {
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 10px;
+        }
+        .accordion-header {
+            padding: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+        }
+        .accordion-header:hover { color: var(--gold); }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            color: #666;
+        }
+        .accordion-content.active { max-height: 500px; padding-bottom: 30px; }
+        .chevron {
+            width: 20px;
+            transition: transform 0.4s;
+        }
+        .rotated { transform: rotate(180deg); }
+
+        /* --- Grid Cards --- */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+            border-color: var(--gold);
+        }
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        /* --- Checklist --- */
+        .checklist {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .checklist li {
+            padding: 20px;
+            background: #fff;
+            border-left: 3px solid var(--gold);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        .checklist li::before {
+            content: "✓";
+            margin-right: 15px;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        /* --- Image Panels --- */
+        .content-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin: 60px 0;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            h2 { font-size: 2rem; }
+            .content-image { height: 300px; }
+            section { padding: 60px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://images.unsplash.com/photo-1516383740770-fbcc5cbece03?q=80&w=2000&auto=format&fit=crop" alt="Family quality time" class="hero-img">
+        <div class="hero-content">
+            <span class="hero-tag">Health & Wellness 2025</span>
+            <h1>Reducing Screen Time: <br><i>The New Digital Harmony</i></h1>
+            <p>An evidence-based roadmap for reclaiming attention, health, and family connection.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Intro -->
+        <section class="reveal">
+            <p class="intro-text">
+                In 2025, screens dominate daily life—smartphones, tablets, and laptops are woven into our very existence. While these tools offer unparalleled convenience, excessive use poses measurable risks to our biological and social fabric.
+            </p>
+            <p>This guide distills the latest research and practical recommendations into a step‑by‑step roadmap for families and individuals seeking to reclaim balanced habits.</p>
+        </section>
+
+        <!-- Benchmarks -->
+        <section class="reveal">
+            <h2>Current Benchmarks</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Age Group</th>
+                            <th>Recommended Limit</th>
+                            <th>2024 Average</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Children 2+</strong></td>
+                            <td>&le; 1 Hour / Day</td>
+                            <td>1.5–2 Hours</td>
+                        </tr>
+                        <tr>
+                            <td><strong>School Age (6-12)</strong></td>
+                            <td>&le; 2 Hours / Day</td>
+                            <td>2.5–3 Hours</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Teens (13-18)</strong></td>
+                            <td>&le; 2 Hours (Discretionary)</td>
+                            <td>8 Hours Daily</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Adults</strong></td>
+                            <td>&le; 3 Hours (Discretionary)</td>
+                            <td>6.5 Hours Total</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><small>*Focus on recreational use; educational activities excluded. Research links continuous exposure beyond 3 hours to visual and physiological strain.</small></p>
+        </section>
+
+        <!-- Image Break 1 -->
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1800&auto=format&fit=crop" alt="Morning routine without screens" class="content-image reveal">
+
+        <!-- Risks Accordion -->
+        <section class="reveal">
+            <h2>Core Risks of Excess</h2>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Sleep Disruption
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Blue-light wavelengths suppress melatonin secretion. A 2022 meta-analysis found that screens within 1 hour of bed delay sleep onset by 30-45 minutes and significantly reduce REM depth.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Physical Health Declines
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>The CDC reported a 15% higher obesity risk in children exceeding 2 hours of recreational use. Adults face elevated LDL cholesterol and blood pressure linked to sedentary screen exposure.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Mental Well-Being
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Longitudinal studies associate &ge; 3 hours of social media with a 12% rise in anxiety scores and reduced attention spans. In-person interactions are being replaced by mediated ones.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Social Erosion
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>High digital communication levels correlate with lower empathy scores. The erosion of facial cues and body language weakens interpersonal bonds over time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Strategies Cards -->
+        <section class="reveal">
+            <h2>Evidence-Based Strategies</h2>
+            <div class="strategy-grid">
+                <div class="card">
+                    <h3>Screen-Free Zones</h3>
+                    <p>Establish "Phone Baskets" for meals. Keeping devices out of bedrooms links to a 30% decrease in nighttime awakenings.</p>
+                </div>
+                <div class="card">
+                    <h3>Digital Windows</h3>
+                    <p>Schedule specific times for recreational use (e.g., 4-6 PM). Default to non-screen hobbies outside these blocks.</p>
+                </div>
+                <div class="card">
+                    <h3>The 20-20-20 Rule</h3>
+                    <p>Every 20 minutes, look 20 feet away for 20 seconds. Reduces accommodative strain by up to 40%.</p>
+                </div>
+                <div class="card">
+                    <h3>Weekly Audit</h3>
+                    <p>Use built-in dashboards to track minutes. Aim for a sustainable 5% incremental reduction each week.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Break 2 -->
+        <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=1800&auto=format&fit=crop" alt="Person enjoying nature" class="content-image reveal">
+
+        <!-- Quick Reference Checklist -->
+        <section class="reveal">
+            <h2>7 Core Actions</h2>
+            <ul class="checklist">
+                <li>Define screen-free zones (Meals/Bedrooms)</li>
+                <li>Set daily digital usage windows</li>
+                <li>Activate blue-light filters after sunset</li>
+                <li>60 mins of daily physical activity</li>
+                <li>Weekly family tech-free night</li>
+                <li>Use parental-control dashboards</li>
+                <li>Review usage data every Sunday</li>
+            </ul>
+        </section>
+
+        <!-- Long Term Benefits -->
+        <section class="reveal" style="border-bottom: none;">
+            <h2>The Long-Term Impact</h2>
+            <div class="table-wrapper">
+                <table style="border: 1px solid #eee;">
+                    <tr>
+                        <td><strong>Sleep Architecture</strong></td>
+                        <td>Increase deep REM by 18%.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Academic & Work</strong></td>
+                        <td>0.3 GPA increase / 12% rise in productivity.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interpersonal</strong></td>
+                        <td>Higher trust and empathy scores in families.</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <span class="footer-logo">Digital Balance</span>
+            <p>Technology is a powerful ally, not an adversary.<br>Setting intentional boundaries safeguards our future.</p>
+            <p style="margin-top: 40px; font-size: 0.8rem; opacity: 0.5;">&copy; 2025 Evidence-Based Health Series. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for Reveal Animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Accordion Logic
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const chevron = header.querySelector('.chevron');
+                
+                // Toggle active state
+                content.classList.toggle('active');
+                chevron.classList.toggle('rotated');
+                
+                // Optional: Close other items
+                document.querySelectorAll('.accordion-content').forEach(otherContent => {
+                    if (otherContent !== content) {
+                        otherContent.classList.remove('active');
+                        otherContent.previousElementSibling.querySelector('.chevron').classList.remove('rotated');
+                    }
+                });
+            });
+        });
+
+        // Parallax Effect for Hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImg = document.querySelector('.hero-img');
+            heroImg.style.transform = `scale(1.1) translateY(${scrolled * 0.4}px)`;
+        });
+    </script>
+</body>
+</html>
