@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health 2026 | A Comprehensive Evidence-Based Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2d3436;
+            --accent: #6b8e23;
+            --accent-soft: #f0f4f0;
+            --bg: #fcfaf7;
+            --card-bg: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #636e72;
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--accent);
+            z-index: 1000;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .hero-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            transform: scale(1.1);
+            transition: transform 10s ease;
+        }
+
+        .hero:hover .hero-img { transform: scale(1); }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+            padding: 2rem;
+            color: #fff;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.5s;
+        }
+
+        .hero-tag {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: var(--accent-soft);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.2s;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Styling */
+        section { padding: 6rem 0; opacity: 0; transform: translateY(40px); transition: var(--transition); }
+        section.visible { opacity: 1; transform: translateY(0); }
+
+        .intro-lead {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            border-left: 3px solid var(--accent);
+            padding-left: 2rem;
+            margin: 3rem 0;
+        }
+
+        /* Grid for Stats/Data */
+        .grid-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border-top: 4px solid var(--accent);
+        }
+
+        .stat-card h3 { font-size: 2rem; color: var(--accent); margin-bottom: 0.5rem; }
+
+        /* Accordion for Policy */
+        .accordion-container { margin: 3rem 0; }
+        .accordion-item {
+            background: var(--card-bg);
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .accordion-header {
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .accordion-header:hover { background: var(--accent-soft); }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+            padding: 0 2rem;
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+            padding: 1rem 2rem 2rem;
+        }
+        .chevron {
+            width: 12px;
+            height: 12px;
+            border-right: 2px solid var(--accent);
+            border-bottom: 2px solid var(--accent);
+            transform: rotate(45deg);
+            transition: transform 0.3s ease;
+        }
+        .accordion-item.active .chevron { transform: rotate(-135deg); }
+
+        /* Practices Grid */
+        .practices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .practice-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .practice-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+        .practice-card span {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* Image Blocks */
+        .image-break {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            height: 500px;
+            margin: 4rem 0;
+            overflow: hidden;
+        }
+        .image-break img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+        }
+
+        /* Workplace/Community Cards */
+        .flex-box {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        .flex-item { flex: 1; min-width: 300px; }
+        .flex-item ul { list-style: none; }
+        .flex-item li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .flex-item li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        footer {
+            background: var(--primary);
+            color: #fff;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .practices-grid { grid-template-columns: 1fr; }
+            section { padding: 4rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <header class="hero">
+        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1600" alt="Serene Nature Landscape" class="hero-img">
+        <div class="hero-content">
+            <span class="hero-tag">A 2026 Strategic Guide</span>
+            <h1>The Evolution of Mental Well-Being</h1>
+            <p>From reactive care to proactive flourishing. An evidence-based framework for a healthier collective future.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="reveal">
+            <h2>Introduction</h2>
+            <p class="intro-lead">Mental health has moved from the margins of public health discourse to the center of global policy conversations.</p>
+            <p>This guide synthesizes current prevalence data, national policy frameworks, and proven personal practices into a single actionable resource. It is designed for individuals seeking to improve their well-being, employers looking to build healthier workplaces, and community leaders aiming to strengthen local support systems.</p>
+        </section>
+
+        <section class="reveal">
+            <h2 style="margin-bottom: 2rem;">The Current Landscape</h2>
+            <div class="grid-stats">
+                <div class="stat-card">
+                    <h3>25%</h3>
+                    <p>Of the population will experience a diagnosable condition this year.</p>
+                </div>
+                <div class="stat-card">
+                    <h3>$1T</h3>
+                    <p>Annual cost to the global economy in lost productivity due to depression and anxiety.</p>
+                </div>
+            </div>
+            <p>Untreated mental illness carries a staggering economic burden. Investing in prevention, early detection, and accessible treatment is both a public health necessity and a sound fiscal strategy.</p>
+        </section>
+
+        <section class="reveal">
+            <h2>National Policy Framework: 2026–2036</h2>
+            <p>A decade-long strategy built around five core structural pillars designed to move the needle at a societal level.</p>
+            
+            <div class="accordion-container">
+                <div class="accordion-item">
+                    <div class="accordion-header">1. Universal Screening <div class="chevron"></div></div>
+                    <div class="accordion-content">
+                        Routine mental health screening in schools and workplaces is now standard. Early identification allows for intervention before conditions become chronic.
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">2. Equitable Access to Therapies <div class="chevron"></div></div>
+                    <div class="accordion-content">
+                        Guaranteed access to CBT, ACT, and Trauma-Informed care regardless of income or geography, facilitated by massive telehealth expansion.
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">3. Workforce Development <div class="chevron"></div></div>
+                    <div class="accordion-content">
+                        National funding to expand training pipelines for psychologists and counselors, specifically targeting rural recruitment.
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">4. Digital Health Integration <div class="chevron"></div></div>
+                    <div class="accordion-content">
+                        Formal integration of secure, evidence-validated apps and tele-therapy platforms into the broader care ecosystem.
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">5. Stigma Reduction <div class="chevron"></div></div>
+                    <div class="accordion-content">
+                        Sustained media campaigns and employer education to normalize help-seeking behavior across all demographics.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="image-break">
+        <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=1600" alt="Mindful reflection near water">
+    </div>
+
+    <div class="container">
+        <section class="reveal">
+            <h2 style="text-align:center;">Ten Evidence-Based Practices</h2>
+            <p style="text-align:center; color: var(--text-muted); margin-bottom: 3rem;">Sustainable habits to build psychological resilience.</p>
+            
+            <div class="practices-grid">
+                <div class="practice-card">
+                    <span>01. Physical Activity</span>
+                    <p>150 minutes of moderate aerobic exercise triggers endorphin release and promotes neuroplasticity.</p>
+                </div>
+                <div class="practice-card">
+                    <span>02. Sleep Hygiene</span>
+                    <p>7 to 9 hours of uninterrupted sleep. Consistent wake times and zero screen exposure after 9 p.m.</p>
+                </div>
+                <div class="practice-card">
+                    <span>03. Mindfulness</span>
+                    <p>Daily meditation reduces rumination and improves emotional regulation via the parasympathetic system.</p>
+                </div>
+                <div class="practice-card">
+                    <span>04. Balanced Nutrition</span>
+                    <p>Supporting the gut-brain axis with Omega-3s and whole foods to reduce systemic inflammation.</p>
+                </div>
+                <div class="practice-card">
+                    <span>05. Social Connection</span>
+                    <p>Prioritizing at least two meaningful interactions per week to combat the mortality risks of loneliness.</p>
+                </div>
+                <div class="practice-card">
+                    <span>06. SMART Goals</span>
+                    <p>Breaking larger objectives into micro-tasks to create frequent achievement cues and dopamine release.</p>
+                </div>
+                <div class="practice-card">
+                    <span>07. Digital Boundaries</span>
+                    <p>Implementing "tech-free" periods and curating feeds to minimize comparison-driven anxiety.</p>
+                </div>
+                <div class="practice-card">
+                    <span>08. Creative Expression</span>
+                    <p>30 minutes a week in "flow states" (art, music, writing) to facilitate emotional processing.</p>
+                </div>
+                <div class="practice-card">
+                    <span>09. Nature Exposure</span>
+                    <p>20 minutes in green spaces reduces cortisol levels and lowers blood pressure significantly.</p>
+                </div>
+                <div class="practice-card">
+                    <span>10. Professional Support</span>
+                    <p>Early engagement in therapy improves outcomes by up to 40% when symptoms persist.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <div style="background: var(--accent-soft); padding: 3rem; border-radius: 20px;">
+                <h2>Building Healthy Systems</h2>
+                <div class="flex-box">
+                    <div class="flex-item">
+                        <h3>The Workplace</h3>
+                        <ul>
+                            <li>Flexible scheduling & remote options</li>
+                            <li>Designated Mental-Health days</li>
+                            <li>Supervisor literacy training</li>
+                            <li>On-site quiet spaces</li>
+                        </ul>
+                    </div>
+                    <div class="flex-item">
+                        <h3>The Community</h3>
+                        <ul>
+                            <li>Peer-led wellness circles</li>
+                            <li>Public education workshops</li>
+                            <li>24/7 Text-based crisis lines</li>
+                            <li>Local research partnerships</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reveal" style="text-align: center; max-width: 700px; margin: 0 auto;">
+            <h2>Key Takeaways</h2>
+            <p style="margin: 2rem 0;">Improving mental health is a long-term project, but action begins today. Start small, prioritize connection, and never hesitate to seek professional guidance.</p>
+            <a href="#" style="display: inline-block; padding: 1.2rem 2.5rem; background: var(--accent); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; transition: var(--transition);">Download Full PDF Guide</a>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <h2 style="color: white; margin-bottom: 1rem;">Flourish 2026</h2>
+            <p style="opacity: 0.6;">A design for human prosperity. Built on evidence, driven by empathy.</p>
+            <p style="margin-top: 3rem; font-size: 0.8rem; opacity: 0.4;">&copy; 2026 Mental Health Initiative. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+
+        // Intersection Observer for Reveal
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Accordion Logic
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                // Close all other items
+                document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+                
+                // Toggle current
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Parallax Effect on Hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImg = document.querySelector('.hero-img');
+            heroImg.style.transform = `translateY(${scrolled * 0.4}px) scale(1.1)`;
+        });
+    </script>
+</body>
+</html>
